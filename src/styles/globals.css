@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+:root {
+  /* ── Core Triad ─────────────────────────────────────────── */
+  --primary:    #562F00;
+  --accent:     #FF9644;
+  --background: #FFFDF1;
+  --foreground: #562F00;
+  --secondary:  #FFB870;
+  --shadow:     rgba(86,47,0,0.12);
+
+  /* Legacy aliases (components reference these) */
+  --rust:  var(--primary);
+  --amber: var(--accent);
+  --cream: var(--background);
+
+  /* ── Terminal / Dark Surface ─────────────────────────────── */
+  --terminal-bg:    #0C0805;
+  --terminal-title: #2E1A08;
+  --rack-frame:     #160E06;
+  --rack-screw:     #0A0603;
+
+  /* ── Diagram Node Borders ────────────────────────────────── */
+  --node-entry:    #FF9644;
+  --node-compute:  #562F00;
+  --node-database: #8B6914;
+  --node-storage:  #C97A30;
+  --node-cache:    #D4A024;
+  --node-queue:    #7A5C2E;
+  --node-cdn:      #E88A3A;
+  --node-service:  #6B4423;
+
+  /* ── Theme Transition (driven by ThemeContext) ───────────── */
+  --bg-color:        #FFFDF1;
+  --text-color:      #562F00;
+  --contact-overlay: 0;
+}
+
+@theme inline {
+  --color-primary:    var(--primary);
+  --color-accent:     var(--accent);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-secondary:  var(--secondary);
+  --color-shadow:     var(--shadow);
+
+  --color-rust:  var(--rust);
+  --color-amber: var(--amber);
+  --color-cream: var(--cream);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-hand: var(--font-caveat);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono), monospace;
+}
+
+/* Subtle grid overlay */
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(86, 47, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(86, 47, 0, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 253, 241, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(86, 47, 0, 0.08);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(86, 47, 0, 0.2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(86, 47, 0, 0.4);
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 150, 68, 0.3);
+  color: var(--rust);
+}
+
+/* Hide scrollbar — navigation is horizontal, the native scrollbar is visual noise */
+html {
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}

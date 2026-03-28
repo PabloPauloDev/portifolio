@@ -1,0 +1,84 @@
+[
+  {
+    "id": "proxmox", "name": "Proxmox VE", "port": "8006",
+    "type": "Hypervisor", "role": "Orchestration", "uptime": "219d 14h",
+    "deepDive": {
+      "lines": [
+        "Dell R720  — 2× Xeon E5-2690v2",
+        "├─ ZFS mirror  2×4 TB  rpool",
+        "├─ LXC: nginx-proxy    :80/443",
+        "├─ LXC: pihole-dns     :53",
+        "├─ LXC: jellyfin       :8096",
+        "├─ VM:  k3s-node1      :6443",
+        "└─ VM:  k3s-node2      :6443"
+      ],
+      "note": "nightly: zfs send → Backblaze B2"
+    }
+  },
+  {
+    "id": "nginx", "name": "Nginx Proxy", "port": "80/443",
+    "type": "Gateway", "role": "Routing", "uptime": "219d 10h",
+    "deepDive": {
+      "lines": [
+        "Cloudflare → Nginx → upstream",
+        "├─ /plex    → Plex   :32400",
+        "├─ /media   → Jelly  :8096",
+        "├─ /finance → Firefly :8080",
+        "└─ /dns     → Pi-hole :80"
+      ],
+      "note": "wildcard cert · rate limit 10r/s"
+    }
+  },
+  {
+    "id": "jellyfin", "name": "Jellyfin", "port": "8096",
+    "type": "Media Server", "role": "Streaming", "uptime": "211d 7h",
+    "deepDive": {
+      "lines": [
+        "LXC — 4-core slice, 8 GB RAM",
+        "├─ NFS: 4 TB library mount",
+        "├─ Transcode: iGPU QuickSync",
+        "└─ Clients: TV, iOS, Android"
+      ],
+      "note": "4K HDR hw-transcode = 0 % CPU"
+    }
+  },
+  {
+    "id": "pihole", "name": "Pi-hole DNS", "port": "53/80",
+    "type": "DNS Sinkhole", "role": "Network", "uptime": "219d 14h",
+    "deepDive": {
+      "lines": [
+        "LXC — 1-core, 512 MB RAM",
+        "├─ Blocklist: 1.2 M domains",
+        "├─ Upstream: CF 1.1.1.1 DoH",
+        "└─ Split-DNS: *.home → LAN IPs"
+      ],
+      "note": "blocks ~35 % of all DNS traffic"
+    }
+  },
+  {
+    "id": "plex", "name": "Plex Media", "port": "32400",
+    "type": "Media Server", "role": "Remote", "uptime": "198d 3h",
+    "deepDive": {
+      "lines": [
+        "VM — Win Server 2022, 16 GB RAM",
+        "├─ H.264 for cellular remux",
+        "├─ Offline sync for travel",
+        "└─ Tautulli → Discord alerts"
+      ],
+      "note": "Win VM for stable GPU passthrough"
+    }
+  },
+  {
+    "id": "firefly", "name": "Firefly III", "port": "8080",
+    "type": "Finance", "role": "Analytics", "uptime": "183d 22h",
+    "deepDive": {
+      "lines": [
+        "Docker — 2 GB RAM",
+        "├─ MariaDB (separate container)",
+        "├─ Spectre API → bank import",
+        "└─ Cron: PDF report each month"
+      ],
+      "note": "100 % financial sovereignty. No SaaS."
+    }
+  }
+]
