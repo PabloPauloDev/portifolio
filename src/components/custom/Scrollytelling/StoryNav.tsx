@@ -13,7 +13,7 @@ export default function StoryNav({ projectTitle, chapterCount, active, onDotClic
   return (
     <div className="fixed top-0 left-0 right-0 z-[200] glass-card border-b border-rust/5">
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-        <Link href="/" className="font-mono text-xs text-rust/50 hover:text-amber transition-colors">
+        <Link href="/?back=1" className="font-mono text-xs text-rust/50 hover:text-amber transition-colors">
           ← Back
         </Link>
         <span className="font-hand text-amber text-sm">

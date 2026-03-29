@@ -41,7 +41,7 @@ export const BOOT_LOG = [
   { text: "  >>>  6 / 6 services nominal  <<<", highlight: true },
 ] as const;
 
-export const BOOT_DELAYS = [0, 80, 220, 440, 640, 840, 1060, 1260, 1460, 1660, 1860, 2060, 2200, 2600];
+export const BOOT_DELAYS = [0, 80, 180, 520, 700, 920, 1140, 1340, 1560, 1760, 1960, 2160, 2360, 2520, 2720, 3100];
 
 export const SHUTDOWN_LOG = [
   { text: "[  0.001]  Received SIGTERM — initiating graceful shutdown" },

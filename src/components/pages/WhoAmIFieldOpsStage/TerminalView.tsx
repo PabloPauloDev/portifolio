@@ -25,7 +25,8 @@ export default function TerminalView(props: Props) {
     lines, cwd, input, isDimmed, inputRef, logRef, onInputChange, onKeyDown } = props;
   return (
     <div ref={logRef} className="flex flex-col p-3 gap-0.5 overflow-y-auto"
-      style={{ flex: 1, background: "#0C0805", scrollbarWidth: "none" }}>
+      style={{ flex: 1, background: "#0C0805", scrollbarWidth: "none" }}
+      onClick={() => inputRef.current?.focus()}>
       <AnimatePresence mode="wait" initial={false}>
         {isShuttingDown ? (
           <ShutdownLog key="shutdown" count={shutdownCount} />
@@ -63,15 +64,25 @@ function BootLog({ count }: { count: number }) {
   return (
     <motion.div className="flex flex-col gap-[3px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.2 } }}>
-      {BOOT_LOG.slice(0, count).map((line, i) => (
-        <motion.p key={i} className="font-mono leading-relaxed whitespace-pre"
-          style={{ fontSize: 11, color: "highlight" in line && line.highlight ? "#FF9644"
-            : i === 0 ? "rgba(255,253,241,0.70)" : "rgba(255,253,241,0.42)",
-            fontWeight: "highlight" in line && line.highlight ? 700 : 400 }}
-          initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.12 }}>
-          {line.text}
-        </motion.p>
-      ))}
+      {BOOT_LOG.slice(0, count).map((line, i) => {
+        const isAscii = "ascii" in line && line.ascii;
+        return (
+          <motion.p key={i}
+            className={`font-mono whitespace-pre ${isAscii ? "leading-none" : "leading-relaxed"}`}
+            style={{
+              fontSize: isAscii ? 9 : 11,
+              color: isAscii ? "rgba(255,150,68,0.55)"
+                : "highlight" in line && line.highlight ? "#FF9644"
+                : i === 0 ? "rgba(255,253,241,0.70)" : "rgba(255,253,241,0.42)",
+              fontWeight: "highlight" in line && line.highlight ? 700 : 400,
+            }}
+            initial={{ opacity: 0, x: isAscii ? 0 : -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: isAscii ? 0.35 : 0.12 }}>
+            {line.text}
+          </motion.p>
+        );
+      })}
       {count < BOOT_LOG.length && (
         <motion.span className="font-mono" style={{ fontSize: 11, color: "#FF9644" }}
           animate={{ opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 0.75 }}>▌</motion.span>

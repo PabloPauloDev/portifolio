@@ -27,17 +27,20 @@ export default function ProjectCardOverlay({ hovered, hasStory, id }: ProjectCar
             exit={{ scale: 0.88, y: 6, opacity: 0 }}
             transition={{ type: "spring", stiffness: 420, damping: 24, mass: 0.7 }}
           >
-            <Link
-              href={`/projects/${id}/story`}
-              className="inline-flex items-center gap-2 px-5 py-2.5
-                         font-mono text-xs font-semibold rounded-xl
-                         shadow-lg shadow-rust/20 transition-colors duration-150"
-              style={{ background: "#562F00", color: "#FFFDF1", border: "1.5px solid rgba(255,150,68,0.35)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "#FF9644"; e.currentTarget.style.color = "#562F00"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "#562F00"; e.currentTarget.style.color = "#FFFDF1"; }}
-            >
-              Architecture Story →
-            </Link>
+            <motion.div whileHover={{ scale: 1.07 }} transition={{ type: "spring", stiffness: 380, damping: 22 }}>
+              <Link
+                href={`/projects/${id}/story`}
+                data-cursor="button"
+                className="inline-flex items-center gap-2 px-5 py-2.5
+                           font-mono text-xs font-semibold rounded-xl
+                           shadow-lg shadow-rust/20 transition-colors duration-150"
+                style={{ background: "#562F00", color: "#FFFDF1", border: "1.5px solid rgba(255,150,68,0.35)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "#FF9644"; e.currentTarget.style.color = "#562F00"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "#562F00"; e.currentTarget.style.color = "#FFFDF1"; }}
+              >
+                Architecture Story →
+              </Link>
+            </motion.div>
           </motion.div>
         </motion.div>
       )}

@@ -4,7 +4,6 @@ import { useState } from "react";
 import type { Blade } from "./types";
 import RackBar from "./RackBar";
 import BladeRow from "./BladeRow";
-import RackTooltip from "./RackTooltip";
 
 export type { Blade, BladeId } from "./types";
 
@@ -15,8 +14,9 @@ interface Props {
 }
 
 export default function Rack({ blades, isDimmed, height }: Props) {
+  // hoveredId drives the isHovered highlight on the blade row.
+  // Tooltip content is managed by the global TooltipProvider via BladeRow.
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const hoveredBlade = blades.find((b) => b.id === hoveredId) ?? null;
 
   return (
     <div className="relative" style={height ? { height } : undefined}>
@@ -41,7 +41,6 @@ export default function Rack({ blades, isDimmed, height }: Props) {
         ))}
         <RackBar side="bottom" isDimmed={isDimmed} />
       </div>
-      <RackTooltip blade={hoveredBlade} />
     </div>
   );
 }

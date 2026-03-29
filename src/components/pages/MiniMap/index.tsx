@@ -33,7 +33,7 @@ export default function MiniMap() {
             const [col, row] = GRID[k];
             return (
               <circle key={k} cx={col * CELL + CELL / 2} cy={row * CELL + CELL / 2} r={DOT_R}
-                fill="rgba(86,47,0,0.18)" style={{ cursor: "pointer" }} onClick={() => scrollToSection(i)} />
+                fill="rgba(86,47,0,0.18)" data-cursor="link" onClick={() => scrollToSection(i)} />
             );
           })}
         </svg>

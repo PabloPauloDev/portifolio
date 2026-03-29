@@ -9,15 +9,22 @@ export default function MacTerminal() {
   const { cwd, lines, exec } = useTerminal();
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => { const el = scrollRef.current; if (el) el.scrollTop = el.scrollHeight; }, [lines]);
 
   const submit = () => { if (!input.trim()) return; exec(input); setInput(""); };
-  const onKey = (e: KeyboardEvent<HTMLInputElement>) => { if (e.key === "Enter") submit(); };
+  const onKey = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") submit();
+    // Prevent spacebar from bubbling to scroll engine while typing
+    if (e.key === " ") e.stopPropagation();
+  };
 
   return (
+    // Clicking anywhere in the terminal focuses the input
     <div className="flex flex-col rounded-lg overflow-hidden h-full"
-      style={{ background: "#FFFDF1", border: "1.5px solid rgba(86,47,0,0.25)", boxShadow: "0 8px 40px rgba(86,47,0,0.12), 0 1px 3px rgba(86,47,0,0.08)" }}>
+      style={{ background: "#FFFDF1", border: "1.5px solid rgba(86,47,0,0.25)", boxShadow: "0 8px 40px rgba(86,47,0,0.12), 0 1px 3px rgba(86,47,0,0.08)" }}
+      onClick={() => inputRef.current?.focus()}>
       <div className="flex items-center gap-2 px-3 py-2 flex-shrink-0"
         style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(86,47,0,0.12)" }}>
         {["#FF9644", "#FFB870", "#562F00"].map((c, i) => (
@@ -32,7 +39,7 @@ export default function MacTerminal() {
       </div>
       <div className="flex items-center gap-2 px-4 py-2 flex-shrink-0" style={{ borderTop: "1px solid rgba(86,47,0,0.10)" }}>
         <span className="font-mono flex-shrink-0" style={{ fontSize: 12, color: "#FF9644" }}>{cwd} $</span>
-        <input className="flex-1 bg-transparent font-mono outline-none"
+        <input ref={inputRef} className="flex-1 bg-transparent font-mono outline-none"
           style={{ fontSize: 12, color: "#562F00", caretColor: "#FF9644" }}
           value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={onKey}
           spellCheck={false} autoComplete="off" aria-label="Terminal input" />

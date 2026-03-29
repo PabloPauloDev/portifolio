@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import DoughnutAnimation from "./DoughnutAnimation";
 
 interface Props {
   lines: { type: string; content: string }[];
@@ -26,6 +27,7 @@ export default function InteractiveShell(props: Props) {
           {line.content}
         </p>
       ))}
+      <DoughnutAnimation />
       <div className="flex items-center mt-auto pt-1">
         <span className="font-mono flex-shrink-0" style={{ fontSize: 11, color: "#FF9644" }}>{cwd}&nbsp;$&nbsp;</span>
         <input ref={inputRef} className="font-mono flex-1 min-w-0 bg-transparent border-none outline-none"

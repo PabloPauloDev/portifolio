@@ -26,8 +26,13 @@ export function useScrollGuard(
     const onKeyDown = (e: KeyboardEvent) => {
       if (currentIdxRef.current !== FIELD_OPS_IDX) return;
       if (!["ArrowDown", "ArrowRight", " ", "PageDown"].includes(e.key)) return;
-      if (shutdownRef.current === "done") return;
-      e.stopImmediatePropagation();
+      if (shutdownRef.current === "done") return;      // Let the terminal input handle its own spacebar — don't intercept
+      // when the user is typing in a focused text field.
+      if (
+        e.key === " " &&
+        (document.activeElement instanceof HTMLInputElement ||
+          document.activeElement instanceof HTMLTextAreaElement)
+      ) return;      e.stopImmediatePropagation();
       e.preventDefault();
       if (shutdownRef.current === "idle") {
         isExiting.current = true;

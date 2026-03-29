@@ -44,7 +44,6 @@
     "storybook": "^10.3.3",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vite": "^8.0.3",
     "vitest": "^4.1.2"
   }
 }

@@ -70,7 +70,7 @@ export default function FieldOpsScene(props: Props) {
 
 function FieldOpsTitle() {
   return (
-    <motion.div className="absolute top-0 left-0 px-8 pt-6 pointer-events-none" style={{ zIndex: 15 }}
+    <motion.div className="absolute top-16 left-0 px-8 pt-4 pointer-events-none" style={{ zIndex: 15 }}
       initial={{ x: -72, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}>
       <p className="font-hand text-base mb-0.5" style={{ color: "#FF9644" }}>{"// home lab"}</p>

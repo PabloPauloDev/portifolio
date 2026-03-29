@@ -53,6 +53,15 @@
   --font-hand: var(--font-caveat);
 }
 
+/* ── Cursor override ────────────────────────────────────────
+   Apply !important so browser defaults on <a>, <button>, <input>
+   and user-agent stylesheets cannot override back to the pointer.
+   CustomCursor renders the replacement at z-9999.              */
+*, *::before, *::after,
+a, button, input, [data-cursor] {
+  cursor: none !important;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

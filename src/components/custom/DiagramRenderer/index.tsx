@@ -1,32 +1,21 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useRef } from "react";
-import type { DiagramData, DiagramNode } from "@/types/diagram";
+import { motion } from "framer-motion";
+import type { DiagramData } from "@/types/diagram";
 import { NODE_W, NODE_H, typeStyles, getEdgePath, getEdgeLabelPos } from "../diagram-utils";
 import DiagramTooltip from "./DiagramTooltip";
+import { useTooltip } from "@/components/reusable/TooltipProvider";
 
 interface Props { data: DiagramData; className?: string }
 
 export default function DiagramRenderer({ data, className = "" }: Props) {
   const nodeMap = new Map(data.nodes.map((n) => [n.id, n]));
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [tooltip, setTooltip] = useState<{ node: DiagramNode; screenX: number; screenY: number } | null>(null);
+  const { show, hide } = useTooltip();
   const maxX = Math.max(...data.nodes.map((n) => n.x + NODE_W + 40), 800);
   const maxY = Math.max(...data.nodes.map((n) => n.y + NODE_H + 40), 500);
 
-  const handleNodeHover = (node: DiagramNode, e: React.MouseEvent) => {
-    if (!node.description) return;
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    let x = e.clientX - rect.left, y = e.clientY - rect.top - 60;
-    x = Math.max(10, Math.min(x, rect.width - 220));
-    y = Math.max(10, y);
-    setTooltip({ node, screenX: x, screenY: y });
-  };
-
   return (
-    <div ref={containerRef} className={`relative ${className}`}>
+    <div className={`relative ${className}`}>
       <motion.p className="font-hand text-lg text-amber mb-2 -rotate-1"
         initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
         {"/* "}{data.systemName}{" */"}
@@ -59,8 +48,9 @@ export default function DiagramRenderer({ data, className = "" }: Props) {
           return (
             <motion.g key={node.id} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1, type: "spring", stiffness: 220, damping: 22 }}
-              onMouseEnter={(e) => handleNodeHover(node, e as unknown as React.MouseEvent)}
-              onMouseLeave={() => setTooltip(null)} style={{ cursor: node.description ? "pointer" : "default" }}>
+              onPointerEnter={node.description ? () => show(<DiagramTooltip node={node} />) : undefined}
+              onPointerLeave={node.description ? hide : undefined}
+              style={{ cursor: node.description ? "pointer" : "default" }}>
               <rect x={node.x} y={node.y} width={NODE_W} height={NODE_H} rx={8} fill={s.bg} stroke={s.border} strokeWidth={1.5} />
               <text x={node.x + 14} y={node.y + NODE_H / 2 + 1} textAnchor="middle" dominantBaseline="middle" fontSize={14} fill={s.border}>{s.icon}</text>
               <text x={node.x + NODE_W / 2 + 8} y={node.y + NODE_H / 2 + 1} textAnchor="middle" dominantBaseline="middle"
@@ -69,7 +59,6 @@ export default function DiagramRenderer({ data, className = "" }: Props) {
           );
         })}
       </svg>
-      <AnimatePresence>{tooltip && <DiagramTooltip key="tip" {...tooltip} />}</AnimatePresence>
     </div>
   );
 }

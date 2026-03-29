@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Caveat } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/reusable/ThemeProvider";
+import TooltipProvider from "@/components/reusable/TooltipProvider";
+import { CursorProvider } from "@/components/reusable/CustomCursor/CursorContext";
+import CustomCursor from "@/components/reusable/CustomCursor";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -31,7 +34,14 @@ export default function RootLayout({
       className={`${jetbrainsMono.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col grid-overlay">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <CursorProvider>
+            {/* CustomCursor lives at the absolute root, outside page transitions,
+                so it survives route changes and AnimatePresence exits. */}
+            <CustomCursor />
+            <TooltipProvider>{children}</TooltipProvider>
+          </CursorProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
