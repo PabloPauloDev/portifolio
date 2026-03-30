@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useMounted } from "@/hooks/useMounted";
 import IntroScreen from "@/components/pages/IntroScreen";
@@ -23,7 +23,7 @@ export default function Home() {
   const [introDone, setIntroDone] = useState(false);
 
   useEffect(() => {
-    if (_introDone) setIntroDone(true);
+    if (_introDone) startTransition(() => setIntroDone(true));
     if (window.location.search.includes("back=1")) {
       window.history.replaceState(null, "", "/");
       scrollToSection(1);

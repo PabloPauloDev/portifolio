@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, type KeyboardEvent } from "react";
 import { motion } from "framer-motion";
 import { useTerminal } from "@/hooks/useTerminal";
 import TerminalLine from "./TerminalLine";
+import DonutBackground from "./DonutBackground";
 
 export default function MacTerminal() {
   const { cwd, lines, exec } = useTerminal();
@@ -22,9 +23,10 @@ export default function MacTerminal() {
 
   return (
     // Clicking anywhere in the terminal focuses the input
-    <div className="flex flex-col rounded-lg overflow-hidden h-full"
+    <div className="relative flex flex-col rounded-lg overflow-hidden h-full"
       style={{ background: "#FFFDF1", border: "1.5px solid rgba(86,47,0,0.25)", boxShadow: "0 8px 40px rgba(86,47,0,0.12), 0 1px 3px rgba(86,47,0,0.08)" }}
       onClick={() => inputRef.current?.focus()}>
+      <DonutBackground />
       <div className="flex items-center gap-2 px-3 py-2 flex-shrink-0"
         style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(86,47,0,0.12)" }}>
         {["#FF9644", "#FFB870", "#562F00"].map((c, i) => (

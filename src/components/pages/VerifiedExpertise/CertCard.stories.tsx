@@ -13,21 +13,29 @@ type Story = StoryObj<typeof CertCard>;
 export const Default: Story = {
   args: {
     cert: {
-      certificateName: "AWS Solutions Architect — Professional",
-      issueDate: "2023-06-15",
-      badgeUrl: "#",
+      certificateName: "AWS Cloud Practitioner",
+      description: "Foundational cloud literacy — core AWS services, security, architecture, and pricing models.",
+      issueDate: "2021-09-10",
+      badgeUrl: "/badges/cloud-practitioner-aws.png",
       color: "#FF9900",
+      shape: "hexagon",
     },
+    index: 0,
+    phase: "idle",
   },
 };
 
-export const Kubernetes: Story = {
+export const Degree: Story = {
   args: {
     cert: {
-      certificateName: "Certified Kubernetes Administrator (CKA)",
-      issueDate: "2022-08-10",
-      badgeUrl: "#",
-      color: "#326CE5",
+      certificateName: "B.Sc. Computer Science",
+      description: "Four-year degree covering algorithms, distributed systems, databases, and software engineering.",
+      issueDate: "2019-06-30",
+      badgeUrl: "/degrees/computer-science-bachelor.png",
+      color: "#4285F4",
+      shape: "rectangle",
     },
+    index: 1,
+    phase: "idle",
   },
 };

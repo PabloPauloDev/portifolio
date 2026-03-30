@@ -1,11 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import DebrisBricks from "./DebrisBricks";
+import PhysicsBadges from "./PhysicsBadges";
 
 export default function Footer() {
   return (
     <motion.footer className="relative w-full h-full flex flex-col items-center justify-center gap-8 px-8 overflow-hidden"
+      data-physics-zone="contact"
       style={{ backgroundColor: "var(--bg-color)" }}>
       <motion.div className="text-center"
         initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
@@ -33,7 +34,7 @@ export default function Footer() {
         </p>
         <p className="font-hand text-sm text-amber/60">{"// built with Next.js + Framer Motion"}</p>
       </motion.div>
-      <DebrisBricks />
+      <PhysicsBadges />
     </motion.footer>
   );
 }

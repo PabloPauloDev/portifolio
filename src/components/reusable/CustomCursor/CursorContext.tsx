@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
 
-export type CursorType = "default" | "link-hover" | "button-hover";
+export type CursorType = "default" | "link-hover" | "button-hover" | "grabbing";
 
 export interface TargetSize {
   width: number;
@@ -21,6 +21,7 @@ interface CursorCtxType {
   targetSize: TargetSize;
   setCursorLinkHovered: (active: boolean) => void;
   setCursorButtonHovered: (el: Element | null) => void;
+  setCursorGrabbing: (active: boolean) => void;
 }
 
 const Ctx = createContext<CursorCtxType>({
@@ -28,6 +29,7 @@ const Ctx = createContext<CursorCtxType>({
   targetSize: DEFAULT_TARGET,
   setCursorLinkHovered: () => {},
   setCursorButtonHovered: () => {},
+  setCursorGrabbing: () => {},
 });
 
 export function CursorProvider({ children }: { children: ReactNode }) {
@@ -51,8 +53,13 @@ export function CursorProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const setCursorGrabbing = useCallback((active: boolean) => {
+    setCursorType(active ? "grabbing" : "default");
+    setTargetSize(DEFAULT_TARGET);
+  }, []);
+
   return (
-    <Ctx.Provider value={{ cursorType, targetSize, setCursorLinkHovered, setCursorButtonHovered }}>
+    <Ctx.Provider value={{ cursorType, targetSize, setCursorLinkHovered, setCursorButtonHovered, setCursorGrabbing }}>
       {children}
     </Ctx.Provider>
   );

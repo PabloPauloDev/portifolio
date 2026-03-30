@@ -27,11 +27,11 @@ export default function Hero() {
         </motion.p>
         <motion.div className="flex gap-4"
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 3.8 }}>
-          <button data-cursor onClick={() => scrollToSection(1)}
+          <button data-cursor="button" onClick={() => scrollToSection(1)}
             className="px-6 py-3 bg-rust text-cream rounded-lg font-mono text-sm hover:bg-rust/90 transition-all hover:shadow-lg hover:shadow-rust/20">
             View Architecture →
           </button>
-          <button data-cursor onClick={() => scrollToSection(4)}
+          <button data-cursor="button" onClick={() => scrollToSection(4)}
             className="px-6 py-3 border border-rust/20 text-rust rounded-lg font-mono text-sm hover:border-amber hover:text-amber transition-all">
             Who Am I
           </button>

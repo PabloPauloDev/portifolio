@@ -47,7 +47,9 @@ export interface HobbyItem {
 
 export interface CertificationItem {
   certificateName: string;
+  description: string;
   issueDate: string;
   badgeUrl: string;
   color: string;
+  shape: "hexagon" | "rectangle";
 }

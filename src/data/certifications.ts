@@ -2,33 +2,27 @@ import { CertificationItem } from "@/types/diagram";
 
 export const certifications: CertificationItem[] = [
   {
-    certificateName: "AWS Solutions Architect — Professional",
-    issueDate: "2023-06-15",
-    badgeUrl: "#",
+    certificateName: "AWS Cloud Practitioner",
+    description: "Foundational cloud literacy — core AWS services, security, architecture, and pricing models.",
+    issueDate: "2021-09-10",
+    badgeUrl: "/badges/cloud-practitioner-aws.png",
     color: "#FF9900",
+    shape: "hexagon",
   },
   {
     certificateName: "AWS Solutions Architect — Associate",
+    description: "Designing resilient, high-performing, secure, and cost-efficient architectures on AWS.",
     issueDate: "2022-03-20",
-    badgeUrl: "#",
+    badgeUrl: "/badges/solutions-architect-associate-aws.png",
     color: "#FF9900",
+    shape: "hexagon",
   },
   {
-    certificateName: "Certified Kubernetes Administrator (CKA)",
-    issueDate: "2022-08-10",
-    badgeUrl: "#",
-    color: "#326CE5",
-  },
-  {
-    certificateName: "HashiCorp Terraform Associate",
-    issueDate: "2021-11-05",
-    badgeUrl: "#",
-    color: "#7B42BC",
-  },
-  {
-    certificateName: "Google Cloud Professional Architect",
-    issueDate: "2024-01-18",
-    badgeUrl: "#",
+    certificateName: "B.Sc. Computer Science",
+    description: "Four-year degree covering algorithms, distributed systems, databases, and software engineering.",
+    issueDate: "2019-06-30",
+    badgeUrl: "/degrees/computer-science-bachelor.png",
     color: "#4285F4",
+    shape: "rectangle",
   },
 ];

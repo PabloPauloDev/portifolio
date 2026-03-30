@@ -18,6 +18,7 @@ export default function CustomCursor() {
   // Ref guards the pointermove handler — avoids stale-closure re-creation
   const locked = useRef(false);
   const { cursorType, targetSize, setCursorLinkHovered, setCursorButtonHovered } = useCursor();
+  const isGrabbing = cursorType === "grabbing";
   const [tp, setTp] = useState(() => themeProgress.get());
   useMotionValueEvent(themeProgress, "change", setTp);
 
@@ -73,11 +74,11 @@ export default function CustomCursor() {
   // Derived dimensions — no state, pure computation
   const isBtn      = cursorType === "button-hover";
   const isLink     = cursorType === "link-hover";
-  const isHovering = isBtn || isLink;
-  const w  = isBtn ? targetSize.width  + 28 : isLink ? 40 : 20;
-  const h  = isBtn ? targetSize.height + 18 : isLink ? 40 : 20;
-  const br = isBtn ? targetSize.borderRadius + 4 : isLink ? 30 : 10;
-  const bg = isBtn ? "rgba(255,150,68,0.12)" : "rgba(0,0,0,0)";
+  const isHovering = isBtn || isLink || isGrabbing;
+  const w  = isBtn ? targetSize.width  + 28 : isGrabbing ? 28 : isLink ? 40 : 20;
+  const h  = isBtn ? targetSize.height + 18 : isGrabbing ? 28 : isLink ? 40 : 20;
+  const br = isBtn ? targetSize.borderRadius + 4 : isGrabbing ? 14 : isLink ? 30 : 10;
+  const bg = isBtn ? "rgba(255,150,68,0.12)" : isGrabbing ? "rgba(255,150,68,0.25)" : "rgba(0,0,0,0)";
   const lp = (a: number, b: number) => Math.round(a + (b - a) * tp);
   const borderColor = isHovering ? "rgba(255,150,68,0.9)" : `rgba(${lp(86,255)},${lp(47,253)},${lp(0,241)},0.75)`;
 
